@@ -370,7 +370,7 @@ public class FunctionCalls {
                 newstate.writeRegister(call.getResultRegister(), Value.makeNone());
             c.propagateToBasicBlock(newstate, call.getSourceNode().getBlock().getSingleSuccessor(), newstate.getContext());
         }
-        c.getMonitoring().visitCall(c.getNode(), maybe_non_function, maybe_function);
+        c.getMonitoring().visitCall(c.getNode(), maybe_non_function, maybe_function, c.getState());
         if (maybe_non_function)
             Exceptions.throwTypeError(c);
     }

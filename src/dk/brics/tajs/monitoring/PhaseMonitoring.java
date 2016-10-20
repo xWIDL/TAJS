@@ -105,8 +105,8 @@ public class PhaseMonitoring implements IAnalysisMonitoring {
     }
 
     @Override
-    public void visitCall(AbstractNode n, boolean maybe_non_function, boolean maybe_function) {
-        activeMonitor.visitCall(n, maybe_non_function, maybe_function);
+    public void visitCall(AbstractNode n, boolean maybe_non_function, boolean maybe_function, State state) {
+        activeMonitor.visitCall(n, maybe_non_function, maybe_function, state);
     }
 
     @Override

@@ -105,12 +105,12 @@ public interface IAnalysisMonitoring extends ISolverMonitoring<State, Context> {
 
     /**
      * Registers a potential call/construct to a non-function value.
-     *
-     * @param n                  node responsible for the call
+     *  @param n                  node responsible for the call
      * @param maybe_non_function if set, this call may involve a non-function value
      * @param maybe_function     if set, this call may involve a function value
+     * @param state
      */
-    void visitCall(AbstractNode n, boolean maybe_non_function, boolean maybe_function);
+    void visitCall(AbstractNode n, boolean maybe_non_function, boolean maybe_function, State state);
 
     /**
      * Registers a call to eval.

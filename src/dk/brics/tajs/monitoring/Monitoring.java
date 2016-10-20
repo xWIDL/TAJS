@@ -1182,13 +1182,13 @@ public class Monitoring implements IAnalysisMonitoring {
 
     /**
      * Registers a potential call/construct to a non-function value.
-     *
-     * @param n                  node responsible for the call
+     *  @param n                  node responsible for the call
      * @param maybe_non_function if set, this call may involve a non-function value
      * @param maybe_function     if set, this call may involve a function value
+     * @param state
      */
     @Override
-    public void visitCall(AbstractNode n, boolean maybe_non_function, boolean maybe_function) {
+    public void visitCall(AbstractNode n, boolean maybe_non_function, boolean maybe_function, State state) {
         if (!scan_phase) {
             return;
         }
@@ -1196,7 +1196,21 @@ public class Monitoring implements IAnalysisMonitoring {
         if (s != Status.NONE) {
             call_to_non_function.add(n);
         }
-        addMessage(n, s, Severity.HIGH, "TypeError, call to non-function");
+
+        String extra = "";
+        if (n instanceof CallNode) {
+            CallNode cn = (CallNode)n;
+            Value baseval = state.readRegister(cn.getBaseRegister());
+
+            if (baseval.isMaybeObject()) {
+                for(ObjectLabel o : baseval.getObjectLabels()) {
+                    if(o.isHostObject())
+                        extra += o.getHostObject() + ", ";
+                }
+            }
+        }
+
+        addMessage(n, s, Severity.HIGH, "TypeError, call to non-function: " + extra);
     }
 
     /**
