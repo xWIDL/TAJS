@@ -734,8 +734,13 @@ public class DOMFunctions {
             case ACTIVE_X_OBJECT_CONSTRUCTOR:
                 return ActiveXObject.evaluate(nativeObject, call, c);
             default: {
-                System.out.println("DOMFunctions can't process this call");
-                c.getMonitoring().addMessage(call.getSourceNode(), Severity.HIGH, "TypeError, call to non-function (DOM): " + nativeObject);
+                String args = "";
+                for(int i = 0; i < call.getNumberOfArgs(); i++) {
+                    args += call.getArg(i) + ", ";
+                }
+
+                c.getMonitoring().addMessage(call.getSourceNode(), Severity.HIGH,
+                                             "HostAPI Unknown call: " + nativeObject + " || " + args);
                 return Value.makeNone();
             }
         }

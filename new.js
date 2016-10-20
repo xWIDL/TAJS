@@ -5,5 +5,5 @@
 
 */
 
-Math.bomb();
+Math.bomb(10);
 Math.cons(1);

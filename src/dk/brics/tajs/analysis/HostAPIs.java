@@ -47,11 +47,11 @@ public enum HostAPIs implements HostAPI {
         /* Dump calling information
          */
 
-        System.out.print("HostAPI Call: " + hostobject + " || ");
-        for(int i = 0; i < call.getNumberOfArgs(); i++) {
-            System.out.print(call.getArg(i) + ", ");
-        }
-        System.out.println();
+//        System.out.print("HostAPI Call: " + hostobject + " || ");
+//        for(int i = 0; i < call.getNumberOfArgs(); i++) {
+//            System.out.print(call.getArg(i) + ", ");
+//        }
+//        System.out.println();
 
         switch ((HostAPIs) hostobject.getAPI()) {
             case ECMASCRIPT_NATIVE:

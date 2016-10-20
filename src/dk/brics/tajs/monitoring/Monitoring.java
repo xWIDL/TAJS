@@ -1197,20 +1197,34 @@ public class Monitoring implements IAnalysisMonitoring {
             call_to_non_function.add(n);
         }
 
-        String extra = "";
         if (n instanceof CallNode) {
             CallNode cn = (CallNode)n;
-            Value baseval = state.readRegister(cn.getBaseRegister());
+            String hostobjects = "";
 
-            if (baseval.isMaybeObject()) {
-                for(ObjectLabel o : baseval.getObjectLabels()) {
-                    if(o.isHostObject())
-                        extra += o.getHostObject() + ", ";
+            if (state.isRegisterDefined(cn.getBaseRegister())) {
+                Value baseval = state.readRegister(cn.getBaseRegister());
+                if (baseval.isMaybeObject()) {
+                    for (ObjectLabel o : baseval.getObjectLabels()) {
+                        if (o.isHostObject())
+                            hostobjects += o.getHostObject() + ", ";
+                    }
                 }
+            }
+
+            String args = "";
+            for(int i = 0; i < cn.getNumberOfArgs(); i++) {
+                if(state.isRegisterDefined(cn.getArgRegister(i)))
+                    args += state.readRegister(cn.getArgRegister(i)) + ",";
+            }
+
+            if (!hostobjects.isEmpty())
+                addMessage(n, s, Severity.HIGH, "HostAPI Unknown calls: " + hostobjects + " || " + args);
+            else {
+                addMessage(n, s, Severity.HIGH, "TypeError, call to non-function");
             }
         }
 
-        addMessage(n, s, Severity.HIGH, "TypeError, call to non-function: " + extra);
+
     }
 
     /**
