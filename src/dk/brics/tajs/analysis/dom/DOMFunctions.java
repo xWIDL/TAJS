@@ -734,6 +734,7 @@ public class DOMFunctions {
             case ACTIVE_X_OBJECT_CONSTRUCTOR:
                 return ActiveXObject.evaluate(nativeObject, call, c);
             default: {
+                System.out.println("DOMFunctions can't process this call");
                 c.getMonitoring().addMessage(call.getSourceNode(), Severity.HIGH, "TypeError, call to non-function (DOM): " + nativeObject);
                 return Value.makeNone();
             }

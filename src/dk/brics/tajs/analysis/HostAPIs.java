@@ -44,6 +44,15 @@ public enum HostAPIs implements HostAPI {
     }
 
     public static Value evaluate(HostObject hostobject, CallInfo call, Solver.SolverInterface c) {
+        /* Dump calling information
+         */
+
+        System.out.print("HostAPI Call: " + hostobject + " || ");
+        for(int i = 0; i < call.getNumberOfArgs(); i++) {
+            System.out.print(call.getArg(i) + ", ");
+        }
+        System.out.println();
+
         switch ((HostAPIs) hostobject.getAPI()) {
             case ECMASCRIPT_NATIVE:
                 return ECMAScriptFunctions.evaluate((ECMAScriptObjects) hostobject, call, c);
