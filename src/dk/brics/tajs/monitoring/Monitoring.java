@@ -1212,9 +1212,14 @@ public class Monitoring implements IAnalysisMonitoring {
             }
 
             String args = "";
+            if (cn.getPropertyString() != null && !cn.getPropertyString().isEmpty())
+                args += cn.getPropertyString() + " || ";
+            else
+                args += "Unknown func || ";
+
             for(int i = 0; i < cn.getNumberOfArgs(); i++) {
                 if(state.isRegisterDefined(cn.getArgRegister(i)))
-                    args += state.readRegister(cn.getArgRegister(i)) + ",";
+                    args += state.readRegister(cn.getArgRegister(i)) + ", ";
             }
 
             if (!hostobjects.isEmpty())

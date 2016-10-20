@@ -740,7 +740,7 @@ public class DOMFunctions {
                 }
 
                 c.getMonitoring().addMessage(call.getSourceNode(), Severity.HIGH,
-                                             "HostAPI Unknown call: " + nativeObject + " || " + args);
+                                             "HostAPI Unknown call: " + nativeObject + " || " + call.getFunctionValue() + " || " + args);
                 return Value.makeNone();
             }
         }

@@ -47,7 +47,7 @@ public enum HostAPIs implements HostAPI {
         /* Dump calling information
          */
 
-//        System.out.print("HostAPI Call: " + hostobject + " || ");
+//        System.out.print("Any HostAPI Call: " + hostobject + " || " + call.getFunctionValue() + " || ");
 //        for(int i = 0; i < call.getNumberOfArgs(); i++) {
 //            System.out.print(call.getArg(i) + ", ");
 //        }
