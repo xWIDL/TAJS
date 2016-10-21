@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="com.github.stampery:msgpack-rpc:0.7.1" type="repository">
+    <properties maven-id="com.github.stampery:msgpack-rpc:0.7.1" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/msgpack-rpc-0.7.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/msgpack-0.6.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/json-simple-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/junit-4.8.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hamcrest-core-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javassist-3.16.1-GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netty-3.2.1.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-log4j12-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j-1.2.16.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
