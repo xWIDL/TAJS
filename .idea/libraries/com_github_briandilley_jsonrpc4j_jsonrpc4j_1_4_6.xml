@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="com.github.briandilley.jsonrpc4j:jsonrpc4j:1.4.6" type="repository">
+    <properties maven-id="com.github.briandilley.jsonrpc4j:jsonrpc4j:1.4.6" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jsonrpc4j-1.4.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/base64-2.3.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-databind-2.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/portlet-api-2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax.servlet-api-3.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

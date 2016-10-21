@@ -52,5 +52,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="closure-compiler" level="project" />
+    <orderEntry type="library" name="com.github.briandilley.jsonrpc4j:jsonrpc4j:1.4.6" level="project" />
   </component>
 </module>
