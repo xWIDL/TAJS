@@ -10,13 +10,12 @@ import java.io.IOException;
 /**
  * Created by zz on 16-10-21.
  */
+public class JsExprTemplate extends AbstractTemplate<JsExpr> {
 
-public class PrimTypeTemplate extends AbstractTemplate<PrimType> {
-    private PrimTypeTemplate() {
-
+    private JsExprTemplate() {
     }
 
-    public void write(Packer pk, PrimType target, boolean required) throws IOException {
+    public void write(Packer pk, JsExpr target, boolean required) throws IOException {
         if (target == null) {
             if (required) {
                 throw new MessageTypeException("Attempted to write null");
@@ -24,23 +23,23 @@ public class PrimTypeTemplate extends AbstractTemplate<PrimType> {
             pk.writeNil();
             return;
         }
-        pk.write(target.getName());
+
+        Util.writeADTBranch(pk, target);
     }
 
-    public PrimType read(Unpacker u, PrimType to, boolean required) throws IOException {
+    public JsExpr read(Unpacker u, JsExpr to, boolean required) throws IOException {
         if (!required && u.trySkipNil()) {
             return null;
         }
-        if(u.readString().equals("PTyInt")) {
-            return PrimType.PTyInt;
-        }
+
+        // TODO: parser
+
         return null;
     }
 
-    static public PrimTypeTemplate getInstance() {
+    static public dk.brics.tajs.xwidl.JsExprTemplate getInstance() {
         return instance;
     }
 
-    static final PrimTypeTemplate instance = new PrimTypeTemplate();
-
+    static final dk.brics.tajs.xwidl.JsExprTemplate instance = new dk.brics.tajs.xwidl.JsExprTemplate();
 }
