@@ -15,8 +15,6 @@ import dk.brics.tajs.xwidl.ValueTemplate;
 import org.msgpack.rpc.Client;
 import org.msgpack.rpc.loop.EventLoop;
 
-import javax.swing.*;
-
 /**
  * Created by zz on 16-10-21.
  */
@@ -26,13 +24,14 @@ public class RPC {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    for (int rc = 1; rc <= requestCount; rc++) {
-                        System.out.println("(" + clientCount + ":" + rc + ") 10 + 2 = " + iface.add(10, 2));
-                        System.out.println("(" + clientCount + ":" + rc + ") 10 - 2 = " + iface.sub(10, 2));
-                        System.out.println("(" + clientCount + ":" + rc + ") 10 * 2 = " + iface.mul(10, 2));
-                        System.out.println("(" + clientCount + ":" + rc + ") 10 / 2 = " + iface.div(10, 2));
-                        System.out.println(iface.unknown(new JsExpr(RelBiOp.Equal, new JsExpr(new Prim(1.0)), new JsExpr(new Prim(2.0)))));
-                    }
+                    System.out.println(iface.unknown(Value.makeAnyBool()));
+                    System.out.println(iface.unknown(Value.makeAnyNum()));
+                    System.out.println(iface.unknown(Value.makeAnyNum().join(Value.makeAnyBool())));
+                    System.out.println(iface.unknown(Value.makeAnyStr()));
+                    System.out.println(iface.unknown(Value.makeNull()));
+                    System.out.println(iface.unknown(Value.makeUndef()));
+                    System.out.println(iface.unknown(Value.makeAnyNumUInt()));
+                    System.out.println(iface.unknown(Value.makeAnyNumOther()));
                 }
             }).start();
         }
@@ -43,7 +42,7 @@ public class RPC {
         int sub(int a, int b);
         int mul(int a, int b);
         double div(int a, int b);
-        int unknown(JsExpr ty);
+        int unknown(Value ty);
     }
 
     public static void run() throws Exception {
