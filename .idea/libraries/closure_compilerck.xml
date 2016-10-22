@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="closure-compiler">
+  <library name="closure-compilerck">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/closure-compiler.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/jericho-html-3.3.jar!/" />

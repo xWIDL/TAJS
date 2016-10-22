@@ -1,10 +1,14 @@
 package dk.brics.tajs;
 
 import dk.brics.tajs.lattice.Value;
+import dk.brics.tajs.xwidl.JsExpr;
+import dk.brics.tajs.xwidl.JsExprTemplate;
 import dk.brics.tajs.xwidl.Name;
 import dk.brics.tajs.xwidl.NameTemplate;
 import dk.brics.tajs.xwidl.PrimType;
 import dk.brics.tajs.xwidl.PrimTypeTemplate;
+import dk.brics.tajs.xwidl.RelBiOp;
+import dk.brics.tajs.xwidl.RelBiOpTemplate;
 import dk.brics.tajs.xwidl.ValueTemplate;
 import org.msgpack.rpc.Client;
 import org.msgpack.rpc.loop.EventLoop;
@@ -46,6 +50,8 @@ public class RPC {
         loop.getMessagePack().register(PrimType.class, PrimTypeTemplate.getInstance());
         loop.getMessagePack().register(Name.class, NameTemplate.getInstance());
         loop.getMessagePack().register(Value.class, ValueTemplate.getInstance());
+        loop.getMessagePack().register(JsExpr.class, JsExprTemplate.getInstance());
+        loop.getMessagePack().register(RelBiOp.class, RelBiOpTemplate.getInstance());
 
         RPCInterface iface = client.proxy(RPCInterface.class);
 
