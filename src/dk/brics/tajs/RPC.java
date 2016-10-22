@@ -31,7 +31,7 @@ public class RPC {
                         System.out.println("(" + clientCount + ":" + rc + ") 10 - 2 = " + iface.sub(10, 2));
                         System.out.println("(" + clientCount + ":" + rc + ") 10 * 2 = " + iface.mul(10, 2));
                         System.out.println("(" + clientCount + ":" + rc + ") 10 / 2 = " + iface.div(10, 2));
-                        System.out.println(iface.unknown(new Prim(1.0)));
+                        System.out.println(iface.unknown(new JsExpr(RelBiOp.Equal, new JsExpr(new Prim(1.0)), new JsExpr(new Prim(2.0)))));
                     }
                 }
             }).start();
@@ -43,7 +43,7 @@ public class RPC {
         int sub(int a, int b);
         int mul(int a, int b);
         double div(int a, int b);
-        int unknown(Prim ty);
+        int unknown(JsExpr ty);
     }
 
     public static void run() throws Exception {

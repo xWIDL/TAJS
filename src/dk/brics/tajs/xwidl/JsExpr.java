@@ -7,10 +7,18 @@ import java.io.IOException;
 /**
  * Created by zz on 16-10-21.
  */
-public enum JsExpr implements ADT {
-    JEBinary("JEBinary"), JEPrim("JEPrim"), JEVar("JEVar");
+public class JsExpr implements ADT {
+    public enum JsExprKind {
+        JEBinary("JEBinary"), JEPrim("JEPrim"), JEVar("JEVar");
 
-    private String tag;
+        private String tag;
+
+        JsExprKind(String tag) {
+            this.tag = tag;
+        }
+    }
+
+    private JsExprKind kind;
 
     // JEBinary
     private RelBiOp op;
@@ -22,27 +30,20 @@ public enum JsExpr implements ADT {
     // JEVar
     private String varName;
 
-    JsExpr(String tag) {
-        this.tag = tag;
+    public JsExpr(RelBiOp op, JsExpr e1, JsExpr e2) {
+        this.kind = JsExprKind.JEBinary;
+        this.op = op;
+        this.e1 = e1;
+        this.e2 = e2;
     }
 
-    public JsExpr makeJEBinary(RelBiOp op, JsExpr e1, JsExpr e2) {
-        JsExpr e = JEBinary;
-        e.op = op;
-        e.e1 = e1;
-        e.e2 = e2;
-
-        return e;
-    }
-
-    public JsExpr makeJEPrim(Prim p) {
-        JsExpr e = JEPrim;
-        e.prim = p;
-        return e;
+    public JsExpr(Prim p) {
+        this.kind = JsExprKind.JEPrim;
+        this.prim = p;
     }
 
     public void writeContents(Packer pk) throws IOException {
-        switch (this) {
+        switch (this.kind) {
             case JEBinary:
                 pk.writeArrayBegin(3);
                 pk.write(op);
@@ -51,6 +52,7 @@ public enum JsExpr implements ADT {
                 pk.writeArrayEnd();
                 break;
             case JEPrim:
+                pk.write(this.prim);
                 break;
             case JEVar:
                 break;
@@ -58,6 +60,6 @@ public enum JsExpr implements ADT {
     }
 
     public String getTag() {
-        return tag;
+        return kind.tag;
     }
 }
