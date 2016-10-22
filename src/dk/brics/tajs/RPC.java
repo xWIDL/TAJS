@@ -5,6 +5,8 @@ import dk.brics.tajs.xwidl.JsExpr;
 import dk.brics.tajs.xwidl.JsExprTemplate;
 import dk.brics.tajs.xwidl.Name;
 import dk.brics.tajs.xwidl.NameTemplate;
+import dk.brics.tajs.xwidl.Prim;
+import dk.brics.tajs.xwidl.PrimTemplate;
 import dk.brics.tajs.xwidl.PrimType;
 import dk.brics.tajs.xwidl.PrimTypeTemplate;
 import dk.brics.tajs.xwidl.RelBiOp;
@@ -12,6 +14,8 @@ import dk.brics.tajs.xwidl.RelBiOpTemplate;
 import dk.brics.tajs.xwidl.ValueTemplate;
 import org.msgpack.rpc.Client;
 import org.msgpack.rpc.loop.EventLoop;
+
+import javax.swing.*;
 
 /**
  * Created by zz on 16-10-21.
@@ -27,7 +31,7 @@ public class RPC {
                         System.out.println("(" + clientCount + ":" + rc + ") 10 - 2 = " + iface.sub(10, 2));
                         System.out.println("(" + clientCount + ":" + rc + ") 10 * 2 = " + iface.mul(10, 2));
                         System.out.println("(" + clientCount + ":" + rc + ") 10 / 2 = " + iface.div(10, 2));
-                        System.out.println(iface.unknown(Value.makeBool(true)));
+                        System.out.println(iface.unknown(new Prim(1.0)));
                     }
                 }
             }).start();
@@ -39,7 +43,7 @@ public class RPC {
         int sub(int a, int b);
         int mul(int a, int b);
         double div(int a, int b);
-        int unknown(Value ty);
+        int unknown(Prim ty);
     }
 
     public static void run() throws Exception {
@@ -52,6 +56,7 @@ public class RPC {
         loop.getMessagePack().register(Value.class, ValueTemplate.getInstance());
         loop.getMessagePack().register(JsExpr.class, JsExprTemplate.getInstance());
         loop.getMessagePack().register(RelBiOp.class, RelBiOpTemplate.getInstance());
+        loop.getMessagePack().register(Prim.class, PrimTemplate.getInstance());
 
         RPCInterface iface = client.proxy(RPCInterface.class);
 

@@ -24,7 +24,7 @@ public class Prim implements ADT {
 
     private PrimKind kind;
 
-    Prim(double n) {
+    public Prim(double n) {
         this.kind = PrimKind.PNumber;
         this.pnumber = n;
     }

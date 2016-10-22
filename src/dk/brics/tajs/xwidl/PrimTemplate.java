@@ -3,6 +3,7 @@ package dk.brics.tajs.xwidl;
 
 import org.msgpack.MessageTypeException;
 import org.msgpack.packer.Packer;
+import org.msgpack.template.AbstractTemplate;
 import org.msgpack.unpacker.Unpacker;
 
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.io.IOException;
 /**
  * Created by zz on 16-10-22.
  */
-public class PrimTemplate {
+public class PrimTemplate extends AbstractTemplate<Prim> {
     private PrimTemplate() {
 
     }
