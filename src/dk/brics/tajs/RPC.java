@@ -1,8 +1,12 @@
 package dk.brics.tajs;
 
 import dk.brics.tajs.lattice.Value;
+import dk.brics.tajs.xwidl.JRef;
+import dk.brics.tajs.xwidl.JRefTemplate;
 import dk.brics.tajs.xwidl.JsExpr;
 import dk.brics.tajs.xwidl.JsExprTemplate;
+import dk.brics.tajs.xwidl.LVar;
+import dk.brics.tajs.xwidl.LVarTemplate;
 import dk.brics.tajs.xwidl.Name;
 import dk.brics.tajs.xwidl.NameTemplate;
 import dk.brics.tajs.xwidl.Prim;
@@ -19,30 +23,11 @@ import org.msgpack.rpc.loop.EventLoop;
  * Created by zz on 16-10-21.
  */
 public class RPC {
-    private static class SpawnRequest {
-        private SpawnRequest(final int clientCount, final int requestCount, final RPCInterface iface) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    System.out.println(iface.unknown(Value.makeAnyBool()));
-                    System.out.println(iface.unknown(Value.makeAnyNum()));
-                    System.out.println(iface.unknown(Value.makeAnyNum().join(Value.makeAnyBool())));
-                    System.out.println(iface.unknown(Value.makeAnyStr()));
-                    System.out.println(iface.unknown(Value.makeNull()));
-                    System.out.println(iface.unknown(Value.makeUndef()));
-                    System.out.println(iface.unknown(Value.makeAnyNumUInt()));
-                    System.out.println(iface.unknown(Value.makeAnyNumOther()));
-                }
-            }).start();
-        }
-    }
 
     public interface RPCInterface {
-        int add(int a, int b);
-        int sub(int a, int b);
-        int mul(int a, int b);
-        double div(int a, int b);
-        int unknown(Value ty);
+        // TODO: Accept the reply
+
+        void call(LVar lvar, Name fname, Value[] vals);
     }
 
     public static void run() throws Exception {
@@ -56,14 +41,12 @@ public class RPC {
         loop.getMessagePack().register(JsExpr.class, JsExprTemplate.getInstance());
         loop.getMessagePack().register(RelBiOp.class, RelBiOpTemplate.getInstance());
         loop.getMessagePack().register(Prim.class, PrimTemplate.getInstance());
+        loop.getMessagePack().register(LVar.class, LVarTemplate.getInstance());
+        loop.getMessagePack().register(JRef.class, JRefTemplate.getInstance());
 
         RPCInterface iface = client.proxy(RPCInterface.class);
 
-        final int CLIENT_COUNT = 1;
-        final int REQ_COUNT = 1;
+        iface.call(new LVar(new Name("x")), new Name("f"), new Value[0]);
 
-        for(int cc = 1; cc <= CLIENT_COUNT; cc++) {
-            new SpawnRequest(cc, REQ_COUNT, iface);
-        }
     }
 }

@@ -8,14 +8,14 @@ import org.msgpack.unpacker.Unpacker;
 import java.io.IOException;
 
 /**
- * Created by zz on 16-10-21.
+ * Created by zz on 16-10-23.
  */
-public class NameTemplate extends AbstractTemplate<Name> {
-    private NameTemplate() {
+public class JRefTemplate extends AbstractTemplate<JRef> {
+    private JRefTemplate() {
 
     }
 
-    public void write(Packer pk, Name target, boolean required) throws IOException {
+    public void write(Packer pk, JRef target, boolean required) throws IOException {
         if (target == null) {
             if (required) {
                 throw new MessageTypeException("Attempted to write null");
@@ -24,23 +24,24 @@ public class NameTemplate extends AbstractTemplate<Name> {
             return;
         }
         pk.writeMapBegin(1);
-        pk.write("unName");
-        pk.write(target.getName());
+        pk.write("unJRef");
+        pk.write(target.getRef());
         pk.writeMapEnd();
     }
 
-    public Name read(Unpacker u, Name to, boolean required) throws IOException {
+    public JRef read(Unpacker u, JRef to, boolean required) throws IOException {
         if (!required && u.trySkipNil()) {
             return null;
         }
+
         // TODO: write parser
         return null;
     }
 
-    static public NameTemplate getInstance() {
+    static public JRefTemplate getInstance() {
         return instance;
     }
 
-    static final NameTemplate instance = new NameTemplate();
+    static final JRefTemplate instance = new JRefTemplate();
 
 }
