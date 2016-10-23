@@ -58,6 +58,9 @@ public enum XWIDLObjects implements HostObject {
 
     @Override
     public String toString() {
-        return lvar + "." + fname.getName();
+        if (lvar != null && fname != null)
+            return lvar + "." + fname.getName();
+        else
+            return string;
     }
 }

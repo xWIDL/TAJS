@@ -204,6 +204,8 @@ public final class Value implements Undef, Null, Bool, Num, Str {
      */
     private String str;
 
+    private int jref;
+
     /**
      * Property reference for polymorphic value.
      */
@@ -1811,6 +1813,16 @@ public final class Value implements Undef, Null, Bool, Num, Str {
         return canonicalize(r);
     }
 
+    public static Value makeJRef(int i) {
+        Value r = new Value();
+        r.jref = i;
+        return r;
+    }
+
+    public int getJref() {
+        return jref;
+    }
+
     /**
      * Constructs the value describing definitely null.
      */
@@ -3348,4 +3360,5 @@ public final class Value implements Undef, Null, Bool, Num, Str {
                 (getters != null && getters.contains(objlabel)) ||
                 (setters != null && setters.contains(objlabel));
     }
+
 }

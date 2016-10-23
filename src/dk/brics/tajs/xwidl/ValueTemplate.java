@@ -31,10 +31,19 @@ public class ValueTemplate extends AbstractTemplate<Value> {
             return null;
         }
         // TODO: Complete parser??? Wait ... Maybe the returned type can be more structural
-        if (u.readString().equals("0")) {
-            return Value.makeNum(0);
+        u.readMapBegin();
+        u.read("tag");
+        switch (u.readString()) {
+            case "JVRRef":
+                u.read("contents");
+                u.readMapBegin();
+                u.read("tag");
+                int i = u.readInt();
+                u.readMapEnd();
+                return Value.makeJRef(i);
+            default:
+                return null;
         }
-        return null;
     }
 
     static public ValueTemplate getInstance() {

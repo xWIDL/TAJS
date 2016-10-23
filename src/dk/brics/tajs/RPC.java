@@ -28,6 +28,7 @@ public class RPC {
         // TODO: Accept the reply
 
         void call(LVar lvar, Name fname, Value[] vals);
+        Value construct(Name iname, Value[] vals, int hash);
     }
 
     static private EventLoop loop = EventLoop.defaultEventLoop();
