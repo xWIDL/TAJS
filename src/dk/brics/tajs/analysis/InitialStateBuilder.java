@@ -18,6 +18,7 @@ package dk.brics.tajs.analysis;
 
 import dk.brics.tajs.analysis.dom.DOMBuilder;
 import dk.brics.tajs.analysis.dom.DOMEvents;
+import dk.brics.tajs.analysis.dom.FileAPI;
 import dk.brics.tajs.analysis.nativeobjects.ECMAScriptObjects;
 import dk.brics.tajs.flowgraph.BasicBlock;
 import dk.brics.tajs.flowgraph.EventHandlerKind;
@@ -558,6 +559,8 @@ public class InitialStateBuilder implements IInitialStateBuilder<State, Context,
 
             DOMBuilder.addInitialState(document, c);
         }
+
+        FileAPI.build(c);
 
         if (Options.get().isDOMEnabled()) {
             for (Entry<EventHandlerKind, Collection<Function>> me : c.getFlowGraph().getEventHandlers().entrySet()) {

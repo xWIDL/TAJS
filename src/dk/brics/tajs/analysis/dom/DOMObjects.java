@@ -726,17 +726,8 @@ public enum DOMObjects implements HostObject {
     ACTIVE_X_OBJECT_ABORT("ActiveXObject.abort"),
     ACTIVE_X_OBJECT_GET_RESPONSE_HEADER("ActiveXObject.getResponseHeader"),
     ACTIVE_X_OBJECT_GET_ALL_RESPONSE_HEADERS("ActiveXObject.getAllResponseHeaders"),
-    JSON_OBJECT("JSONObject"),
+    JSON_OBJECT("JSONObject");
 
-    // File API TODO: Make this registration part automated
-    BLOB_CONSTRUCTOR("Blob constructor"),
-    BLOB_PROTOTYPE("Blob.prototype"),
-    BLOB_INSTANCES("Blob instances"),
-    BLOB_SIZE("Blob.size"),
-    BLOB_TYPE("Blob.type"),
-    BLOB_ISCLOSED("Blob.isClosed"),
-    BLOB_SLICE("Blob.prototype.slice"),
-    BLOB_CLOSE("Blob.close");
 
     private HostAPIs api;
 

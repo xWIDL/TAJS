@@ -15,7 +15,17 @@ import static dk.brics.tajs.analysis.HostAPIs.XWIDL_CUSTOM;
 /**
  * Created by zz on 16-10-23.
  */
-public class XWIDLObjects implements HostObject {
+public enum XWIDLObjects implements HostObject {
+
+    // File API TODO: Make this registration part automated
+    BLOB_CONSTRUCTOR("Blob constructor"),
+    BLOB_PROTOTYPE("Blob.prototype"),
+    BLOB_INSTANCES("Blob instances"),
+    BLOB_SIZE("Blob.size"),
+    BLOB_TYPE("Blob.type"),
+    BLOB_ISCLOSED("Blob.isClosed"),
+    BLOB_SLICE("Blob.prototype.slice"),
+    BLOB_CLOSE("Blob.close");
 
     private LVar lvar;
     private Name fname;
@@ -25,9 +35,12 @@ public class XWIDLObjects implements HostObject {
         return XWIDL_CUSTOM;
     }
 
-    public XWIDLObjects(DOMObjects obj) {
-        this.lvar = new LVar(new Name("test_lvar"));
-        this.fname = new Name("test_fname");
+    private HostAPI api;
+    private String string;
+
+    XWIDLObjects(String str) {
+        api = HostAPIs.XWIDL_CUSTOM;
+        string = str;
     }
 
     @Override

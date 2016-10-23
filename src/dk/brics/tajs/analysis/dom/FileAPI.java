@@ -3,6 +3,7 @@ package dk.brics.tajs.analysis.dom;
 import dk.brics.tajs.analysis.InitialStateBuilder;
 import dk.brics.tajs.analysis.PropVarOperations;
 import dk.brics.tajs.analysis.Solver;
+import dk.brics.tajs.analysis.XWIDLObjects;
 import dk.brics.tajs.lattice.ObjectLabel;
 import dk.brics.tajs.lattice.State;
 import dk.brics.tajs.lattice.Value;
@@ -24,9 +25,9 @@ public class FileAPI {
     public static void build(Solver.SolverInterface c) {
         State s = c.getState();
         PropVarOperations pv = c.getAnalysis().getPropVarOperations();
-        CONSTRUCTOR = new ObjectLabel(DOMObjects.BLOB_CONSTRUCTOR, ObjectLabel.Kind.FUNCTION);
-        PROTOTYPE = new ObjectLabel(DOMObjects.BLOB_PROTOTYPE, ObjectLabel.Kind.OBJECT);
-        INSTANCES = new ObjectLabel(DOMObjects.BLOB_INSTANCES, ObjectLabel.Kind.OBJECT);
+        CONSTRUCTOR = new ObjectLabel(XWIDLObjects.BLOB_CONSTRUCTOR, ObjectLabel.Kind.FUNCTION);
+        PROTOTYPE = new ObjectLabel(XWIDLObjects.BLOB_PROTOTYPE, ObjectLabel.Kind.OBJECT);
+        INSTANCES = new ObjectLabel(XWIDLObjects.BLOB_INSTANCES, ObjectLabel.Kind.OBJECT);
 
         // Constructor Object
         s.newObject(CONSTRUCTOR);
@@ -55,7 +56,7 @@ public class FileAPI {
          * Functions.
          */
 
-        createDOMFunction(PROTOTYPE, DOMObjects.BLOB_SLICE, "slice", 3, c);
-        createDOMFunction(PROTOTYPE, DOMObjects.BLOB_CLOSE, "close", 0, c);
+        createDOMFunction(PROTOTYPE, XWIDLObjects.BLOB_SLICE, "slice", 3, c);
+        createDOMFunction(PROTOTYPE, XWIDLObjects.BLOB_CLOSE, "close", 0, c);
     }
 }

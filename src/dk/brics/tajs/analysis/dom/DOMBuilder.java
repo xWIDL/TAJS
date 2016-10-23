@@ -109,9 +109,6 @@ public class DOMBuilder {
         // Build initial html5 state
         HTML5Builder.build(c);
 
-        // Build initial FileAPI state
-        FileAPI.build(c);
-
         // Build initial event state
         EventBuilder.build(c);
 

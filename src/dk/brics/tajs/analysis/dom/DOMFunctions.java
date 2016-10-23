@@ -735,10 +735,6 @@ public class DOMFunctions {
             case ACTIVE_X_OBJECT_GET_ALL_RESPONSE_HEADERS:
             case ACTIVE_X_OBJECT_CONSTRUCTOR:
                 return ActiveXObject.evaluate(nativeObject, call, c);
-            case BLOB_CLOSE:
-            case BLOB_CONSTRUCTOR:
-            case BLOB_SLICE:
-                return XWIDLFunctions.evaluate(new XWIDLObjects(nativeObject), call, c);
             default: {
                 String args = "";
                 for(int i = 0; i < call.getNumberOfArgs(); i++) {
