@@ -204,8 +204,6 @@ public final class Value implements Undef, Null, Bool, Num, Str {
      */
     private String str;
 
-    private int jref;
-
     /**
      * Property reference for polymorphic value.
      */
@@ -1811,16 +1809,6 @@ public final class Value implements Undef, Null, Bool, Num, Str {
         Value r = (v == null) ? new Value() : new Value(v);
         r.flags |= NULL;
         return canonicalize(r);
-    }
-
-    public static Value makeJRef(int i) {
-        Value r = new Value();
-        r.jref = i;
-        return r;
-    }
-
-    public int getJref() {
-        return jref;
     }
 
     /**

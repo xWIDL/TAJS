@@ -388,7 +388,7 @@ public class GenericSolver<StateType extends IState<StateType, ContextType, Call
                         if (current_state.isNone())
                             continue block_loop; // unreachable, so skip the rest of the block
                         analysis.getMonitoring().visitReachableNode(node);
-                        // analysis.getNodeTransferFunctions().transfer(node);
+//                        analysis.getNodeTransferFunctions().transfer(node);
                     }
                     analysis.getMonitoring().visitPostBlockTransfer(block, current_state);
                 }

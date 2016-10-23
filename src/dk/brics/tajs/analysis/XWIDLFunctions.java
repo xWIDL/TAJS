@@ -1,8 +1,11 @@
 package dk.brics.tajs.analysis;
 
-import com.google.common.hash.HashCode;
+
+import dk.brics.tajs.analysis.dom.FileAPI;
+import dk.brics.tajs.lattice.ObjectLabel;
 import dk.brics.tajs.lattice.State;
 import dk.brics.tajs.lattice.Value;
+import dk.brics.tajs.xwidl.JRef;
 import dk.brics.tajs.xwidl.Name;
 
 import java.util.ArrayList;
@@ -26,9 +29,15 @@ public class XWIDLFunctions {
 
         Value[] argsArray = args.toArray(new Value[0]);
 
+        State state = c.getState();
+
         switch (nativeObject) {
             case BLOB_CONSTRUCTOR:
-                return State.getRpcInterface().construct(new Name("Blob"), argsArray, hash);// FIXME: ad-hoc
+                JRef r = State.getRpcInterface().construct(new Name("Blob"), argsArray, hash);// FIXME: ad-hoc
+                ObjectLabel obj = new ObjectLabel(call.getSourceNode(), r);
+                state.newObject(obj);
+                state.writeInternalPrototype(obj, Value.makeObject(FileAPI.PROTOTYPE));
+                return Value.makeObject(obj);
             case BLOB_PROTOTYPE:
                 break;
             case BLOB_INSTANCES:

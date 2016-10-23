@@ -22,6 +22,7 @@ import dk.brics.tajs.flowgraph.SourceLocation;
 import dk.brics.tajs.options.OptionValues;
 import dk.brics.tajs.options.Options;
 import dk.brics.tajs.util.AnalysisException;
+import dk.brics.tajs.xwidl.JRef;
 
 /**
  * Label of abstract object.
@@ -37,7 +38,7 @@ public final class ObjectLabel implements Comparable<ObjectLabel> { // TODO: (#1
     /**
      * Special object label for absent getter/setter.
      */
-    public static final ObjectLabel absent_accessor_function = new ObjectLabel(null, null, null, Kind.FUNCTION, null, false);
+    public static final ObjectLabel absent_accessor_function = new ObjectLabel(null, null, null, Kind.FUNCTION, null, false, null);
 
     /**
      * Object kinds.
@@ -55,7 +56,8 @@ public final class ObjectLabel implements Comparable<ObjectLabel> { // TODO: (#1
         ERROR("Error"),
         MATH("Math"),
         ACTIVATION("activation"),
-        ARGUMENTS("arguments");
+        ARGUMENTS("arguments"),
+        XWIDL("xwidl");
 
         private String name;
 
@@ -85,12 +87,14 @@ public final class ObjectLabel implements Comparable<ObjectLabel> { // TODO: (#1
 
     private final HeapContext heapContext; // for context sensitivity
 
+    private JRef jref;
+
     /**
      * Cached hashcode for immutable instance.
      */
     private final int hashcode;
 
-    private ObjectLabel(HostObject hostobject, AbstractNode node, Function function, Kind kind, HeapContext heapContext, boolean singleton) {
+    private ObjectLabel(HostObject hostobject, AbstractNode node, Function function, Kind kind, HeapContext heapContext, boolean singleton, JRef jref) {
         this.hostobject = hostobject;
         this.node = node;
         this.function = function;
@@ -111,13 +115,15 @@ public final class ObjectLabel implements Comparable<ObjectLabel> { // TODO: (#1
                 (this.singleton ? 123 : 0) +
                 this.heapContext.hashCode() +
                 this.kind.ordinal() * 117; // avoids using enum hashcodes
+
+        this.jref = jref;
     }
 
     /**
      * Constructs a new object label for a user defined non-function object.
      */
     public ObjectLabel(AbstractNode n, Kind kind) {
-        this(null, n, null, kind, null, true);
+        this(null, n, null, kind, null, true, null);
     }
 
     /**
@@ -127,14 +133,14 @@ public final class ObjectLabel implements Comparable<ObjectLabel> { // TODO: (#1
      * number of concrete objects).
      */
     public ObjectLabel(AbstractNode n, Kind kind, HeapContext heapContext) {
-        this(null, n, null, kind, heapContext, true);
+        this(null, n, null, kind, heapContext, true, null);
     }
 
     /**
      * Constructs a new object label for a user defined function object.
      */
     public ObjectLabel(Function f) {
-        this(null, null, f, Kind.FUNCTION, null, true);
+        this(null, null, f, Kind.FUNCTION, null, true, null);
     }
 
     /**
@@ -144,7 +150,7 @@ public final class ObjectLabel implements Comparable<ObjectLabel> { // TODO: (#1
      * number of concrete objects).
      */
     public ObjectLabel(Function f, HeapContext heapContext) {
-        this(null, null, f, Kind.FUNCTION, heapContext, true);
+        this(null, null, f, Kind.FUNCTION, heapContext, true, null);
     }
 
     /**
@@ -154,7 +160,11 @@ public final class ObjectLabel implements Comparable<ObjectLabel> { // TODO: (#1
      * number of concrete objects).
      */
     public ObjectLabel(HostObject hostobject, Kind kind) {
-        this(hostobject, null, null, kind, null, true);
+        this(hostobject, null, null, kind, null, true, null);
+    }
+
+    public ObjectLabel(AbstractNode node, JRef jref) {
+        this(null, node, null, Kind.XWIDL, null, true, jref);
     }
 
     /**
@@ -229,7 +239,7 @@ public final class ObjectLabel implements Comparable<ObjectLabel> { // TODO: (#1
     public ObjectLabel makeSummary() {
         if (!singleton && !Options.get().isRecencyDisabled())
             throw new AnalysisException("Attempt to obtain summary of non-singleton");
-        return new ObjectLabel(hostobject, node, function, kind, heapContext, false);
+        return new ObjectLabel(hostobject, node, function, kind, heapContext, false, null);
     }
 
     /**
@@ -238,7 +248,7 @@ public final class ObjectLabel implements Comparable<ObjectLabel> { // TODO: (#1
     public ObjectLabel makeSingleton() {
         if (singleton)
             return this;
-        return new ObjectLabel(hostobject, node, function, kind, heapContext, true);
+        return new ObjectLabel(hostobject, node, function, kind, heapContext, true, null);
     }
 
     /**

@@ -1,6 +1,5 @@
 package dk.brics.tajs.analysis;
 
-import dk.brics.tajs.analysis.dom.DOMObjects;
 import dk.brics.tajs.lattice.HostAPI;
 import dk.brics.tajs.lattice.HostObject;
 import dk.brics.tajs.lattice.ObjectLabel;
@@ -18,14 +17,14 @@ import static dk.brics.tajs.analysis.HostAPIs.XWIDL_CUSTOM;
 public enum XWIDLObjects implements HostObject {
 
     // File API TODO: Make this registration part automated
-    BLOB_CONSTRUCTOR("Blob constructor"),
-    BLOB_PROTOTYPE("Blob.prototype"),
-    BLOB_INSTANCES("Blob instances"),
-    BLOB_SIZE("Blob.size"),
-    BLOB_TYPE("Blob.type"),
-    BLOB_ISCLOSED("Blob.isClosed"),
-    BLOB_SLICE("Blob.prototype.slice"),
-    BLOB_CLOSE("Blob.close");
+    BLOB_CONSTRUCTOR("Blob constructor", ""),
+    BLOB_PROTOTYPE("Blob.prototype", ""),
+    BLOB_INSTANCES("Blob instances", ""),
+    BLOB_SIZE("Blob.size", ""),
+    BLOB_TYPE("Blob.type", ""),
+    BLOB_ISCLOSED("Blob.isClosed", ""),
+    BLOB_SLICE("Blob.prototype", "slice"),
+    BLOB_CLOSE("Blob", "close");
 
     private LVar lvar;
     private Name fname;
@@ -38,9 +37,10 @@ public enum XWIDLObjects implements HostObject {
     private HostAPI api;
     private String string;
 
-    XWIDLObjects(String str) {
+    XWIDLObjects(String str1, String str2) {
         api = HostAPIs.XWIDL_CUSTOM;
-        string = str;
+        string = str1;
+        fname = new Name(str2);
     }
 
     @Override
