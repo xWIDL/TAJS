@@ -1,5 +1,6 @@
 package dk.brics.tajs.analysis;
 
+import dk.brics.tajs.analysis.dom.DOMObjects;
 import dk.brics.tajs.lattice.HostAPI;
 import dk.brics.tajs.lattice.HostObject;
 import dk.brics.tajs.lattice.ObjectLabel;
@@ -22,6 +23,11 @@ public class XWIDLObjects implements HostObject {
     @Override
     public HostAPI getAPI() {
         return XWIDL_CUSTOM;
+    }
+
+    public XWIDLObjects(DOMObjects obj) {
+        this.lvar = new LVar(new Name("test_lvar"));
+        this.fname = new Name("test_fname");
     }
 
     @Override

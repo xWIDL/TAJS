@@ -1,11 +1,4 @@
 
-/*
 
-
-
-*/
-
-
-var x = new FileReader();
-
+var b = new Blob();
 

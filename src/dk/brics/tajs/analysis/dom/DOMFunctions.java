@@ -19,6 +19,8 @@ package dk.brics.tajs.analysis.dom;
 import dk.brics.tajs.analysis.FunctionCalls.CallInfo;
 import dk.brics.tajs.analysis.InitialStateBuilder;
 import dk.brics.tajs.analysis.Solver;
+import dk.brics.tajs.analysis.XWIDLFunctions;
+import dk.brics.tajs.analysis.XWIDLObjects;
 import dk.brics.tajs.analysis.dom.ajax.ActiveXObject;
 import dk.brics.tajs.analysis.dom.ajax.JSONObject;
 import dk.brics.tajs.analysis.dom.ajax.XmlHttpRequest;
@@ -733,6 +735,10 @@ public class DOMFunctions {
             case ACTIVE_X_OBJECT_GET_ALL_RESPONSE_HEADERS:
             case ACTIVE_X_OBJECT_CONSTRUCTOR:
                 return ActiveXObject.evaluate(nativeObject, call, c);
+            case BLOB_CLOSE:
+            case BLOB_CONSTRUCTOR:
+            case BLOB_SLICE:
+                return XWIDLFunctions.evaluate(new XWIDLObjects(nativeObject), call, c);
             default: {
                 String args = "";
                 for(int i = 0; i < call.getNumberOfArgs(); i++) {
