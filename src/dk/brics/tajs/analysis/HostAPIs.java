@@ -32,7 +32,8 @@ import dk.brics.tajs.util.AnalysisException;
 public enum HostAPIs implements HostAPI {
 
     ECMASCRIPT_NATIVE("ECMAScript native functions", "native"),
-    DOCUMENT_OBJECT_MODEL("The Document Object Model", "dom");
+    DOCUMENT_OBJECT_MODEL("The Document Object Model", "dom"),
+    XWIDL_CUSTOM("xWIDL-based Custom Models", "xwidl");
 
     private String name;
 
@@ -58,6 +59,8 @@ public enum HostAPIs implements HostAPI {
                 return ECMAScriptFunctions.evaluate((ECMAScriptObjects) hostobject, call, c);
             case DOCUMENT_OBJECT_MODEL:
                 return DOMFunctions.evaluate((DOMObjects) hostobject, call, c);
+            case XWIDL_CUSTOM:
+                return XWIDLFunctions.evaluate((XWIDLObjects) hostobject, call, c);
             default:
                 throw new AnalysisException("Unexpected host API");
         }

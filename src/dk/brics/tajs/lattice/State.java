@@ -16,6 +16,7 @@
 
 package dk.brics.tajs.lattice;
 
+import dk.brics.tajs.RPC;
 import dk.brics.tajs.flowgraph.AbstractNode;
 import dk.brics.tajs.flowgraph.BasicBlock;
 import dk.brics.tajs.lattice.ObjectLabel.Kind;
@@ -118,6 +119,8 @@ public class State implements IState<State, Context, CallEdge> {
 
     private static int number_of_makewritable_registers; // TODO: currently not used
 
+    private static RPC.RPCInterface iface; // XXX: Currently, it is static. I am not sure if this design does make sense
+
     /**
      * Constructs a new none-state (representing the empty set of concrete states).
      */
@@ -127,6 +130,11 @@ public class State implements IState<State, Context, CallEdge> {
         summarized = new Summarized();
         extras = new StateExtras();
         setToNone();
+        try {
+            iface = RPC.init();
+        } catch (Exception e) {
+            System.err.println("RPC initialization failed: " + e);
+        }
         number_of_states_created++;
     }
 

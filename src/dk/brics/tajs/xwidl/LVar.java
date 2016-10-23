@@ -57,4 +57,14 @@ public class LVar implements ADT {
                 break;
         }
     }
+
+    @Override
+    public String toString() {
+        switch (this.kind) {
+            case LRef: return "LRef(" + this.jref.getRef() + ")";
+            case LInterface: return this.iname.getName();
+        }
+
+        return super.toString();
+    }
 }

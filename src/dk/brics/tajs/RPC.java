@@ -30,11 +30,13 @@ public class RPC {
         void call(LVar lvar, Name fname, Value[] vals);
     }
 
-    public static void run() throws Exception {
-        EventLoop loop = EventLoop.defaultEventLoop();
+    static private EventLoop loop = EventLoop.defaultEventLoop();
+
+
+    public static RPCInterface init() throws Exception {
+        System.out.print("Initialize the RPC module...");
 
         Client client = new Client("localhost", 8888, loop);
-
         loop.getMessagePack().register(PrimType.class, PrimTypeTemplate.getInstance());
         loop.getMessagePack().register(Name.class, NameTemplate.getInstance());
         loop.getMessagePack().register(Value.class, ValueTemplate.getInstance());
@@ -44,9 +46,11 @@ public class RPC {
         loop.getMessagePack().register(LVar.class, LVarTemplate.getInstance());
         loop.getMessagePack().register(JRef.class, JRefTemplate.getInstance());
 
-        RPCInterface iface = client.proxy(RPCInterface.class);
+        System.out.println("done");
+        return client.proxy(RPCInterface.class);
+    }
 
+    public static void test(RPCInterface iface) throws Exception {
         iface.call(new LVar(new Name("x")), new Name("f"), new Value[0]);
-
     }
 }

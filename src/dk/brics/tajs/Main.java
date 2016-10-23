@@ -68,18 +68,17 @@ public class Main {
      * Terminates with System.exit.
      */
     public static void main(String[] args) throws Exception {
-//        try {
-//            initLogging();
-//            Analysis a = init(args, null);
-//            if (a == null)
-//                System.exit(-1);
-//            run(a);
-//            System.exit(0);
-//        } catch (AnalysisException e) {
-//            e.printStackTrace();
-//            System.exit(-2);
-//        }
-        RPC.run();
+        try {
+            initLogging();
+            Analysis a = init(args, null);
+            if (a == null)
+                System.exit(-1);
+            run(a);
+            System.exit(0);
+        } catch (AnalysisException e) {
+            e.printStackTrace();
+            System.exit(-2);
+        }
     }
 
     /**
