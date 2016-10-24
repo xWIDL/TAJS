@@ -6,6 +6,7 @@ import dk.brics.tajs.lattice.ObjectLabel;
 import dk.brics.tajs.lattice.State;
 import dk.brics.tajs.lattice.Value;
 import dk.brics.tajs.xwidl.JRef;
+import dk.brics.tajs.xwidl.LVar;
 import dk.brics.tajs.xwidl.Name;
 
 import java.util.ArrayList;
@@ -50,8 +51,14 @@ public class XWIDLFunctions {
                 break;
             case BLOB_SLICE:
             case BLOB_CLOSE:
-                State.getRpcInterface().call(nativeObject.getLVar(), nativeObject.getFname(), argsArray);
-                break;
+                JRef thisObj;
+                for (ObjectLabel label : call.prepareThis(state, state)) {
+                    if (label.getKind().equals(ObjectLabel.Kind.XWIDL)) {
+                        thisObj = label.getJref();
+                        State.getRpcInterface().call(new LVar(thisObj), nativeObject.getFname(), argsArray);
+                        break;
+                    }
+                }
         }
 
 

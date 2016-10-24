@@ -57,7 +57,6 @@ public class FileAPI {
          */
 
         createDOMFunction(PROTOTYPE, XWIDLObjects.BLOB_SLICE, "slice", 3, c);
-
-        pv.writePropertyWithAttributes(INSTANCES, "close");
+        createDOMFunction(PROTOTYPE, XWIDLObjects.BLOB_CLOSE, "close", 0, c);
     }
 }

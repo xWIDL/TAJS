@@ -34,8 +34,10 @@ public class JRefTemplate extends AbstractTemplate<JRef> {
             return null;
         }
 
-        // TODO: write parser
-        return null;
+        u.readMapBegin();
+        u.read("unJRef");
+        int i = u.readInt();
+        return new JRef(i);
     }
 
     static public JRefTemplate getInstance() {

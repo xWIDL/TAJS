@@ -89,6 +89,10 @@ public final class ObjectLabel implements Comparable<ObjectLabel> { // TODO: (#1
 
     private JRef jref;
 
+    public JRef getJref() {
+        return jref;
+    }
+
     /**
      * Cached hashcode for immutable instance.
      */
