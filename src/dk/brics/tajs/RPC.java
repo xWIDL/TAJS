@@ -15,6 +15,8 @@ import dk.brics.tajs.xwidl.PrimType;
 import dk.brics.tajs.xwidl.PrimTypeTemplate;
 import dk.brics.tajs.xwidl.RelBiOp;
 import dk.brics.tajs.xwidl.RelBiOpTemplate;
+import dk.brics.tajs.xwidl.Reply;
+import dk.brics.tajs.xwidl.ReplyTemplate;
 import dk.brics.tajs.xwidl.ValueTemplate;
 import org.msgpack.rpc.Client;
 import org.msgpack.rpc.loop.EventLoop;
@@ -27,7 +29,7 @@ public class RPC {
     public interface RPCInterface {
         // TODO: Accept the reply
 
-        void call(LVar lvar, Name fname, Value[] vals);
+        Reply call(LVar lvar, Name fname, Value[] vals);
         JRef construct(Name iname, Value[] vals, int hash);
     }
 
@@ -46,6 +48,7 @@ public class RPC {
         loop.getMessagePack().register(Prim.class, PrimTemplate.getInstance());
         loop.getMessagePack().register(LVar.class, LVarTemplate.getInstance());
         loop.getMessagePack().register(JRef.class, JRefTemplate.getInstance());
+        loop.getMessagePack().register(Reply.class, ReplyTemplate.getInstance());
 
         System.out.println("done");
         return client.proxy(RPCInterface.class);

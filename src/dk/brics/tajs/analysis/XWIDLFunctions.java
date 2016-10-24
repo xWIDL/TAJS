@@ -55,7 +55,7 @@ public class XWIDLFunctions {
                 for (ObjectLabel label : call.prepareThis(state, state)) {
                     if (label.getKind().equals(ObjectLabel.Kind.XWIDL)) {
                         thisObj = label.getJref();
-                        State.getRpcInterface().call(new LVar(thisObj), nativeObject.getFname(), argsArray);
+                        System.out.println(State.getRpcInterface().call(new LVar(thisObj), nativeObject.getFname(), argsArray));
                         break;
                     }
                 }
